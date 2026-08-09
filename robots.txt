@@ -1,0 +1,13 @@
+# ============================================================
+# CLIENT CONFIG — set your real domain before go-live
+# Host this file at: https://www.YOURDOMAIN.com/robots.txt
+# ============================================================
+
+User-agent: *
+Allow: /
+
+# Disallow thank-you or private paths if you add them later:
+# Disallow: /thank-you
+# Disallow: /admin/
+
+Sitemap: https://www.meridiangeneral.example/sitemap.xml

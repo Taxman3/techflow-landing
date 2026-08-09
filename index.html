@@ -3,939 +3,1183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechFlow - Modern Business Solutions</title>
+
+  <!-- ============================================================
+       CLIENT CONFIG — edit these lines for each hospital client
+       (search this file for {{TICK}} to find optional toggles)
+       ============================================================
+       Brand name:     Meridian General Hospital
+       Short name:     Meridian
+       Tagline:        Exceptional care, closer to home.
+       Domain:         https://www.meridiangeneral.example
+       Phone:          (555) 014-2200
+       Email:          appointments@meridiangeneral.example
+       Address:        1200 Harbor Way, Lakeside, CA 92040
+       Hours:          Open 24/7 — Emergency & Inpatient
+       Clinic hours:   Mon–Fri 8am–6pm · Sat 9am–1pm
+       Primary color:  #0B4F6C
+       Accent color:   #D97706
+       GA4 ID:         G-XXXXXXXXXX          (paste real ID or leave)
+       GSC verify:     (paste Google Search Console content value)
+       ============================================================ -->
+
+  <!-- PAGE SEO (change per client; keep unique title + description) -->
+  <title>Meridian General Hospital | Exceptional Care Closer to Home</title>
+  <meta name="description" content="Meridian General Hospital provides 24/7 emergency care, cardiology, maternity, pediatrics, and advanced imaging. Book an appointment online.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://www.meridiangeneral.example/">
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meridian General Hospital">
+  <meta property="og:title" content="Meridian General Hospital | Exceptional Care Closer to Home">
+  <meta property="og:description" content="24/7 emergency care, specialist clinics, and patient-first treatment in Lakeside.">
+  <meta property="og:url" content="https://www.meridiangeneral.example/">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Meridian General Hospital">
+  <meta name="twitter:description" content="Exceptional care, closer to home. Book your appointment today.">
+
+  <!-- {{TICK}} Google Search Console verification — uncomment & paste
+  <meta name="google-site-verification" content="PASTE_GSC_TOKEN_HERE">
+  -->
+
+  <!-- {{TICK}} Google Analytics 4 — uncomment & paste measurement ID
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B4F6C'/%3E%3Cpath d='M14 6h4v8h8v4h-8v8h-4v-8H6v-4h8z' fill='%23F8FAFC'/%3E%3C/svg%3E">
+
+  <!-- Hospital / MedicalOrganization schema for Google indexing -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hospital",
+    "name": "Meridian General Hospital",
+    "url": "https://www.meridiangeneral.example/",
+    "telephone": "+1-555-014-2200",
+    "email": "appointments@meridiangeneral.example",
+    "description": "Full-service hospital offering emergency care, specialty clinics, maternity, and diagnostics.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1200 Harbor Way",
+      "addressLocality": "Lakeside",
+      "addressRegion": "CA",
+      "postalCode": "92040",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    }],
+    "medicalSpecialty": [
+      "Emergency",
+      "Cardiovascular",
+      "Obstetric",
+      "Pediatric",
+      "Orthopedic",
+      "Diagnostic"
+    ],
+    "sameAs": []
+  }
+  </script>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* ===== DESIGN TOKENS (sync with CLIENT CONFIG colors) ===== */
     :root {
-      --primary: #667eea;
-      --secondary: #764ba2;
-      --text-dark: #333;
-      --text-light: #555;
-      --text-muted: #aaa;
-      --bg-light: #f8f9fa;
-      --bg-dark: #222;
-      --border-color: #eee;
-      --success: #ffc107;
+      --brand: #0B4F6C;
+      --brand-deep: #07384D;
+      --brand-soft: #E6F2F6;
+      --accent: #D97706;
+      --accent-hover: #B45309;
+      --text: #14212B;
+      --text-soft: #3E5160;
+      --muted: #6B7C88;
+      --line: #D5E2E8;
+      --surface: #F4F8FA;
+      --white: #FFFFFF;
+      --nav-h: 72px;
+      --radius: 6px;
+      --shadow: 0 12px 40px rgba(11, 79, 108, 0.12);
+      --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background: #fff;
+      font-family: var(--font-body);
+      color: var(--text);
+      line-height: 1.65;
+      background: var(--white);
+      overflow-x: hidden;
     }
 
-    /* ===== NAVIGATION ===== */
-    nav {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      position: fixed;
-      width: 100%;
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    ul { list-style: none; }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 9999;
+      background: var(--white);
+      color: var(--brand);
+      padding: 0.75rem 1.25rem;
+      font-weight: 700;
+    }
+    .skip-link:focus { left: 0; }
+
+    .container {
+      width: min(1120px, calc(100% - 2rem));
+      margin-inline: auto;
     }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
+    /* ===== NAV ===== */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      height: var(--nav-h);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      background: rgba(244, 248, 250, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .site-header.scrolled {
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom-color: var(--line);
+      box-shadow: 0 8px 24px rgba(11, 79, 108, 0.08);
+    }
+
+    .nav-bar {
+      width: min(1120px, calc(100% - 2rem));
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
     .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: white;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--brand);
       text-decoration: none;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
     }
-
-    .nav-menu {
-      display: flex;
-      gap: 0;
-      align-items: center;
+    .logo span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.15rem;
     }
 
     .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.3s;
-      position: relative;
-    }
-
-    .nav-links a:hover {
-      opacity: 0.8;
-    }
-
-    .nav-links a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: white;
-    }
-
-    .cta-nav {
-      background: white;
-      color: var(--primary);
-      padding: 0.6rem 1.5rem;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: none;
-      margin-left: 1rem;
-    }
-
-    .cta-nav:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .hamburger {
       display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: white;
-      transition: all 0.3s;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(8px, 8px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    /* ===== HERO SECTION ===== */
-    .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      padding: 150px 2rem 100px;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      animation: fadeInHero 1s ease-in-out;
+      gap: 1.75rem;
     }
-
-    @keyframes fadeInHero {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      font-weight: 600;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      transition: color 0.25s ease;
     }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      margin-bottom: 1rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      font-size: clamp(1.1rem, 3vw, 1.3rem);
-      margin-bottom: 2rem;
-      max-width: 600px;
-      opacity: 0.95;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--brand); }
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 8px;
+      height: 2px;
+      background: var(--accent);
     }
 
     .btn {
-      padding: 1rem 2.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
-      min-width: 200px;
-    }
-
-    .btn-primary {
-      background: white;
-      color: var(--primary);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    .btn-primary:active {
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.1);
-      transform: translateY(-3px);
-    }
-
-    /* ===== FEATURES SECTION ===== */
-    .features {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 2rem;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: clamp(2rem, 5vw, 2.5rem);
-      margin-bottom: 3rem;
-      color: var(--text-dark);
-      font-weight: 700;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-card h3 {
-      margin-bottom: 1rem;
-      color: var(--primary);
-      font-size: 1.5rem;
-    }
-
-    .feature-card p {
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
-
-    /* ===== HOW IT WORKS ===== */
-    .how-it-works {
-      background: var(--bg-light);
-      padding: 80px 2rem;
-    }
-
-    .steps {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .step {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .step:hover {
-      transform: translateY(-5px);
-    }
-
-    .step-number {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      border-radius: 50%;
-      font-weight: bold;
-      font-size: 1.5rem;
+      min-height: 48px;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(217, 119, 6, 0.28);
+    }
+    .btn-accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.65);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+    .btn-outline {
+      background: transparent;
+      color: var(--brand);
+      border-color: var(--brand);
+    }
+    .btn-outline:hover {
+      background: var(--brand);
+      color: var(--white);
+    }
+
+    .nav-cta { display: none; }
+
+    .hamburger {
+      width: 44px; height: 44px;
+      border: 0;
+      background: transparent;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--brand);
+      transition: 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(7, 56, 77, 0.35);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      opacity: 0; visibility: hidden;
+      transition: 0.3s ease;
+      z-index: 998;
+    }
+    .nav-backdrop.active { opacity: 1; visibility: visible; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; left: 0;
+      width: min(300px, 86vw);
+      height: 100dvh;
+      background: var(--white);
+      padding: 5.5rem 1.5rem 2rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      box-shadow: var(--shadow);
+    }
+    .mobile-menu.active { transform: translateX(0); }
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-menu .btn { width: 100%; margin-top: 1.25rem; }
+
+    /* ===== HERO (full-bleed, brand-first) ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: flex-end;
+      padding: calc(var(--nav-h) + 2rem) 0 4.5rem;
+      color: var(--white);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(120deg, rgba(7, 56, 77, 0.92) 0%, rgba(11, 79, 108, 0.78) 48%, rgba(27, 122, 143, 0.55) 100%),
+        radial-gradient(ellipse 80% 60% at 80% 20%, rgba(217, 119, 6, 0.22), transparent 55%),
+        linear-gradient(160deg, #07384D 0%, #0B4F6C 45%, #1A6B7C 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
+    }
+
+    .hero-inner {
+      width: min(1120px, calc(100% - 2rem));
+      margin-inline: auto;
+      max-width: 720px;
+      animation: riseIn 0.9s ease both;
+    }
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-brand {
+      font-family: var(--font-display);
+      font-size: clamp(2.75rem, 9vw, 4.75rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 700;
       margin-bottom: 1rem;
     }
-
-    .step h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-dark);
+    .hero p {
+      font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+      max-width: 34ch;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 2rem;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
     }
 
-    .step p {
-      color: var(--text-light);
-      font-size: 0.95rem;
+    /* ===== SECTION CHROME ===== */
+    .section {
+      padding: 5rem 0;
+    }
+    .section-head {
+      max-width: 36rem;
+      margin-bottom: 2.75rem;
+    }
+    .section-head.center {
+      text-align: center;
+      margin-inline: auto;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 2.75rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--brand-deep);
+      margin-bottom: 0.75rem;
+    }
+    .section-head p {
+      color: var(--text-soft);
+      font-size: 1.05rem;
+    }
+
+    .bg-soft { background: var(--surface); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== SERVICES (no heavy cards — interaction via links) ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .service {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s ease, padding 0.25s ease;
+    }
+    .service:hover {
+      background: var(--brand-soft);
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--brand-soft);
+      color: var(--brand);
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .service h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--brand-deep);
+      margin-bottom: 0.35rem;
+    }
+    .service p {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+    }
+
+    /* ===== CARE PATH ===== */
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      counter-reset: step;
+    }
+    .step {
+      position: relative;
+      padding-left: 4.5rem;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0; top: 0;
+      width: 3.25rem; height: 3.25rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--brand);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+    .step h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 0.4rem;
+      color: var(--brand-deep);
+    }
+    .step p { color: var(--text-soft); }
+
+    /* ===== TRUST STRIP ===== */
+    .trust {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .trust-item h3 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      color: var(--brand);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .trust-item p {
+      color: var(--text-soft);
+      max-width: 22ch;
     }
 
     /* ===== TESTIMONIALS ===== */
-    .testimonials {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 2rem;
-    }
-
-    .testimonials-grid {
+    .quotes {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    .quote {
+      border-left: 4px solid var(--accent);
+      padding: 0.25rem 0 0.25rem 1.25rem;
+    }
+    .quote blockquote {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      line-height: 1.45;
+      color: var(--brand-deep);
+      margin-bottom: 0.85rem;
+    }
+    .quote cite {
+      font-style: normal;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--muted);
     }
 
-    .testimonial {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      border-left: 4px solid var(--primary);
-      transition: transform 0.3s;
-      opacity: 0;
-      transform: translateY(20px);
+    /* ===== APPOINTMENT CTA / FORM ===== */
+    .cta-band {
+      background:
+        linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 60%, #1B7A8F 100%);
+      color: var(--white);
+      padding: 5rem 0;
     }
-
-    .testimonial:hover {
-      transform: translateY(-5px);
-    }
-
-    .stars {
-      color: var(--success);
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-      letter-spacing: 3px;
-    }
-
-    .testimonial-text {
-      margin-bottom: 1rem;
-      font-style: italic;
-      color: var(--text-light);
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
-
-    .testimonial-author {
-      font-weight: bold;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* ===== PRICING ===== */
-    .pricing {
-      background: var(--bg-light);
-      padding: 80px 2rem;
-    }
-
-    .pricing-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .pricing-grid {
+    .cta-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: start;
     }
-
-    .pricing-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
+    .cta-copy h2 {
+      color: var(--white);
+      margin-bottom: 0.85rem;
     }
-
-    .pricing-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    .cta-copy p {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 1.25rem;
+      max-width: 36ch;
     }
-
-    .pricing-card.featured {
-      border: 3px solid var(--primary);
-      position: relative;
+    .cta-meta {
+      display: grid;
+      gap: 0.65rem;
+      font-size: 0.98rem;
+      color: rgba(255,255,255,0.88);
     }
+    .cta-meta strong { color: var(--white); }
 
-    .pricing-card.featured::before {
-      content: "Most Popular";
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: bold;
+    .appt-form {
+      background: var(--white);
+      color: var(--text);
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
-
-    .pricing-card h3 {
+    .appt-form h3 {
+      font-family: var(--font-display);
       font-size: 1.5rem;
-      margin-top: 0.5rem;
-      color: var(--text-dark);
-    }
-
-    .price {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin: 1rem 0;
-      font-weight: bold;
-    }
-
-    .price span {
-      font-size: 1rem;
-      color: var(--text-light);
-    }
-
-    .pricing-card p {
-      color: var(--text-light);
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .features-list {
-      text-align: left;
-      margin: 2rem 0;
-      list-style: none;
-    }
-
-    .features-list li {
-      padding: 0.8rem 0;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
-
-    .features-list li:last-child {
-      border-bottom: none;
-    }
-
-    .features-list li:before {
-      content: "✓ ";
-      color: var(--primary);
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-    /* ===== CTA SECTION ===== */
-    .cta-section {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      padding: 80px 2rem;
-      text-align: center;
-    }
-
-    .cta-content {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .cta-section h2 {
-      font-size: clamp(2rem, 5vw, 2.5rem);
+      color: var(--brand-deep);
       margin-bottom: 1rem;
-      font-weight: 700;
     }
-
-    .cta-section p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      opacity: 0.95;
+    .form-grid {
+      display: grid;
+      gap: 0.85rem;
+    }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--text-soft);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.7rem 0.85rem;
+      font: inherit;
+      background: var(--surface);
+      color: var(--text);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      background: var(--white);
+      border-color: var(--brand);
+    }
+    .appt-form .btn { width: 100%; margin-top: 0.5rem; }
+    .form-note {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
     }
 
     /* ===== FOOTER ===== */
-    footer {
-      background: var(--bg-dark);
-      color: #fff;
-      padding: 3rem 2rem;
+    .site-footer {
+      background: #0A2F3D;
+      color: rgba(255,255,255,0.82);
+      padding: 3.5rem 0 0;
     }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
+    .footer-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: 1fr;
       gap: 2rem;
-      margin-bottom: 2rem;
+      padding-bottom: 2.5rem;
     }
-
-    .footer-section h4 {
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       margin-bottom: 1rem;
-      font-size: 1rem;
-      font-weight: 600;
     }
-
-    .footer-section ul {
-      list-style: none;
-    }
-
-    .footer-section li {
-      margin-bottom: 0.8rem;
-    }
-
-    .footer-section a {
-      color: var(--text-muted);
+    .footer-col a {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
       text-decoration: none;
-      transition: color 0.3s;
-      font-size: 0.9rem;
+      color: rgba(255,255,255,0.72);
+      transition: color 0.2s ease;
     }
-
-    .footer-section a:hover {
-      color: var(--primary);
-    }
-
+    .footer-col a:hover { color: #FBBF24; text-decoration: none; }
     .footer-bottom {
-      border-top: 1px solid #444;
-      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 1.25rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--brand-deep);
+      color: var(--white);
+      padding: 0.95rem 1.35rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 2000;
+      max-width: min(92vw, 420px);
       text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      opacity: 0;
+      transition: 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
 
     /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: fixed;
-        left: 0;
-        top: 60px;
-        flex-direction: column;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        width: 100%;
-        text-align: center;
-        padding: 2rem 0;
-        gap: 1rem;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .cta-nav {
-        margin-left: 0;
-        width: 90%;
-        max-width: none;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .nav-container {
-        flex-wrap: wrap;
-      }
-
-      .hero {
-        padding: 120px 1rem 60px;
-      }
-
-      .features, .how-it-works, .testimonials, .pricing, .cta-section {
-        padding: 60px 1rem;
-      }
-
-      .section-title {
-        margin-bottom: 2rem;
-      }
+    @media (min-width: 640px) {
+      .services-grid { grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .trust { grid-template-columns: repeat(3, 1fr); }
+      .quotes { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+      .form-grid.two { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 480px) {
-      .logo {
-        font-size: 1.4rem;
-      }
+    @media (min-width: 900px) {
+      .nav-links,
+      .nav-cta { display: flex; }
+      .hamburger,
+      .mobile-menu,
+      .nav-backdrop { display: none !important; }
+      .hero { align-items: center; padding-bottom: 0; }
+      .quotes { grid-template-columns: repeat(3, 1fr); }
+      .cta-layout { grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: center; }
+      .steps { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+      .step { padding-left: 0; padding-top: 4.5rem; }
+      .step::before { top: 0; }
+      .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; }
+    }
 
-      .hero h1 {
-        font-size: 1.8rem;
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
-
-      .section-title {
-        font-size: 1.8rem;
-      }
-
-      .price {
-        font-size: 2rem;
-      }
-
-      .cta-nav {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-      }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <!-- NAVIGATION -->
-  <nav>
-    <div class="nav-container">
-      <a href="#home" class="logo">TechFlow</a>
-      <div class="nav-menu">
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#how">How It Works</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-        </ul>
-        <button class="btn cta-nav" id="ctaNav">Get Started</button>
-        <div class="hamburger" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <!--
+    ============================================================
+    FEATURE TOGGLES FOR THIS CLIENT (tick what you need)
+    [x] Emergency banner / 24-7 messaging
+    [x] Services list
+    [x] Care pathway (How it works)
+    [x] Trust / credentials strip
+    [x] Patient testimonials
+    [x] Appointment request form
+    [x] JSON-LD Hospital schema
+    [x] robots.txt + sitemap.xml
+    [ ] Google Analytics 4          ← uncomment block in <head>
+    [ ] Search Console verify meta  ← uncomment block in <head>
+    [ ] Blog / news section
+    [ ] Multi-language
+    ============================================================
+    LAUNCH / INDEXING CHECKLIST (for you + client)
+    [ ] Deploy on HTTPS hosting
+    [ ] Replace .example domain everywhere (canonical, schema, sitemap)
+    [ ] Submit sitemap in Google Search Console
+    [ ] Confirm mobile friendliness in GSC / PageSpeed
+    [ ] Check Coverage → Indexed pages
+    [ ] Review crawl errors monthly
+    [ ] Track queries, clicks, average position in GSC Performance
+    [ ] Confirm no Manual Actions in GSC
+    ============================================================
+  -->
 
-  <!-- HERO SECTION -->
-  <section id="home" class="hero">
-    <h1>Build Something Amazing Today</h1>
-    <p>The modern solution for businesses ready to scale. Fast, secure, and built for growth.</p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary" onclick="handleCTA()">Start Free Trial</button>
-      <button class="btn btn-secondary" onclick="handleDemo()">Watch Demo</button>
-    </div>
-  </section>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- FEATURES SECTION -->
-  <section id="features" class="features">
-    <h2 class="section-title">Why Choose Us?</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>Lightning Fast</h3>
-        <p>Built for speed with optimized performance that keeps your users happy.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Secure</h3>
-        <p>Enterprise-grade security with encryption and compliance standards.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Analytics</h3>
-        <p>Real-time insights and detailed reports to make data-driven decisions.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🤝</div>
-        <h3>Support</h3>
-        <p>24/7 dedicated support team ready to help you succeed.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🚀</div>
-        <h3>Scalable</h3>
-        <p>Grow without limits. Our infrastructure scales with your business.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔌</div>
-        <h3>Integrations</h3>
-        <p>Connect with your favorite tools seamlessly with our APIs.</p>
-      </div>
-    </div>
-  </section>
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-bar" aria-label="Primary">
+      <a class="logo" href="#top">
+        Meridian General
+        <span>Hospital</span>
+      </a>
 
-  <!-- HOW IT WORKS -->
-  <section id="how" class="how-it-works">
-    <div class="steps">
-      <h2 class="section-title">How It Works</h2>
-      <div class="steps-grid">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Sign Up</h3>
-          <p>Create your account in under 2 minutes.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Configure</h3>
-          <p>Set up your preferences and integrate your tools.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Launch</h3>
-          <p>Go live and start seeing results immediately.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <h3>Grow</h3>
-          <p>Scale your business with our support.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <ul class="nav-links" id="desktopNav">
+        <li><a href="#services" data-nav>Services</a></li>
+        <li><a href="#care-path" data-nav>Your Visit</a></li>
+        <li><a href="#trust" data-nav>Why Us</a></li>
+        <li><a href="#stories" data-nav>Stories</a></li>
+        <li><a href="#appointments" data-nav>Appointments</a></li>
+      </ul>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="testimonials">
-    <h2 class="section-title">What Our Customers Say</h2>
-    <div class="testimonials-grid">
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"TechFlow transformed our business. We saw a 300% increase in efficiency within the first month!"</p>
-        <p class="testimonial-author">— Sarah Johnson, CEO at StartupXYZ</p>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"The support team is incredible. They were there every step of the way during our implementation."</p>
-        <p class="testimonial-author">— Mark Chen, Founder at TechCorp</p>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"Best investment we made this year. ROI was obvious in the first quarter."</p>
-        <p class="testimonial-author">— Emily Rodriguez, CFO at GlobalBiz</p>
-      </div>
-    </div>
-  </section>
+      <a class="btn btn-accent nav-cta" href="#appointments">Book Visit</a>
 
-  <!-- PRICING -->
-  <section id="pricing" class="pricing">
-    <div class="pricing-container">
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>Starter</h3>
-          <div class="price">$29<span>/month</span></div>
-          <p>Perfect for getting started</p>
-          <ul class="features-list">
-            <li>Up to 100 users</li>
-            <li>5GB storage</li>
-            <li>Email support</li>
-            <li>Basic analytics</li>
-          </ul>
-          <button class="btn btn-primary" onclick="handleCTA()">Choose Plan</button>
-        </div>
-        <div class="pricing-card featured">
-          <h3>Professional</h3>
-          <div class="price">$99<span>/month</span></div>
-          <p>Most popular choice</p>
-          <ul class="features-list">
-            <li>Up to 1,000 users</li>
-            <li>500GB storage</li>
-            <li>Priority support</li>
-            <li>Advanced analytics</li>
-          </ul>
-          <button class="btn btn-primary" onclick="handleCTA()">Choose Plan</button>
-        </div>
-        <div class="pricing-card">
-          <h3>Enterprise</h3>
-          <div class="price">Custom</div>
-          <p>For large organizations</p>
-          <ul class="features-list">
-            <li>Unlimited users</li>
-            <li>Unlimited storage</li>
-            <li>24/7 dedicated support</li>
-            <li>Custom integrations</li>
-          </ul>
-          <button class="btn btn-primary" onclick="handleCTA()">Contact Sales</button>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+  <aside class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
+    <a href="#services">Services</a>
+    <a href="#care-path">Your Visit</a>
+    <a href="#trust">Why Us</a>
+    <a href="#stories">Stories</a>
+    <a href="#appointments">Appointments</a>
+    <a class="btn btn-accent" href="#appointments">Book Visit</a>
+  </aside>
+
+  <main id="main">
+    <!-- HERO: brand is the dominant signal -->
+    <section class="hero" id="top" aria-labelledby="hero-brand">
+      <div class="hero-inner">
+        <h1 class="hero-brand" id="hero-brand">Meridian General Hospital</h1>
+        <p>Exceptional care, closer to home. Emergency, specialty clinics, and compassionate teams — ready when you need us.</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent" href="#appointments">Book an Appointment</a>
+          <a class="btn btn-ghost" href="tel:+15550142200">Call (555) 014-2200</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA SECTION -->
-  <section id="contact" class="cta-section">
-    <div class="cta-content">
-      <h2>Ready to Get Started?</h2>
-      <p>Join thousands of businesses already using TechFlow to accelerate their growth.</p>
-      <button class="btn btn-primary" onclick="handleCTA()">Start Your Free Trial Today</button>
-    </div>
-  </section>
+    <!-- SERVICES -->
+    <section class="section" id="services" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Clinical services</p>
+          <h2 id="services-heading">Care for every stage of life</h2>
+          <p>From urgent emergencies to planned specialty visits, our departments work as one coordinated team.</p>
+        </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Product</h4>
+        <div class="services-grid">
+          <a class="service reveal" href="#appointments">
+            <div class="service-icon" aria-hidden="true">✚</div>
+            <div>
+              <h3>Emergency Care</h3>
+              <p>24/7 trauma-ready emergency department with rapid triage and critical care.</p>
+            </div>
+          </a>
+          <a class="service reveal" href="#appointments">
+            <div class="service-icon" aria-hidden="true">♥</div>
+            <div>
+              <h3>Cardiology</h3>
+              <p>Heart diagnostics, interventional care, and long-term cardiac wellness plans.</p>
+            </div>
+          </a>
+          <a class="service reveal" href="#appointments">
+            <div class="service-icon" aria-hidden="true">☽</div>
+            <div>
+              <h3>Maternity &amp; Newborn</h3>
+              <p>Prenatal visits, labor &amp; delivery suites, and family-centered postpartum support.</p>
+            </div>
+          </a>
+          <a class="service reveal" href="#appointments">
+            <div class="service-icon" aria-hidden="true">⚙</div>
+            <div>
+              <h3>Orthopedics</h3>
+              <p>Joint, sports, and fracture care with on-site imaging and rehabilitation partners.</p>
+            </div>
+          </a>
+          <a class="service reveal" href="#appointments">
+            <div class="service-icon" aria-hidden="true">☺</div>
+            <div>
+              <h3>Pediatrics</h3>
+              <p>Child-focused clinics for wellness checks, illness, and developmental care.</p>
+            </div>
+          </a>
+          <a class="service reveal" href="#appointments">
+            <div class="service-icon" aria-hidden="true">◫</div>
+            <div>
+              <h3>Imaging &amp; Labs</h3>
+              <p>MRI, CT, ultrasound, and full laboratory services with fast result turnaround.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARE PATH -->
+    <section class="section bg-soft" id="care-path" aria-labelledby="care-heading">
+      <div class="container">
+        <div class="section-head center">
+          <p class="eyebrow">Your visit</p>
+          <h2 id="care-heading">How care works here</h2>
+          <p>A clear path from first call to follow-up — so patients and families always know the next step.</p>
+        </div>
+        <div class="steps">
+          <article class="step reveal">
+            <h3>Book</h3>
+            <p>Request a visit online or by phone. We confirm time, location, and prep instructions.</p>
+          </article>
+          <article class="step reveal">
+            <h3>Arrive</h3>
+            <p>Check in at reception or emergency triage. Parking and wayfinding are clearly marked.</p>
+          </article>
+          <article class="step reveal">
+            <h3>Treat</h3>
+            <p>Meet your care team. Tests, consults, and treatment happen in coordinated sequence.</p>
+          </article>
+          <article class="step reveal">
+            <h3>Follow up</h3>
+            <p>Receive aftercare plans, prescriptions, and scheduling for any return visits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="section" id="trust" aria-labelledby="trust-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Why families choose us</p>
+          <h2 id="trust-heading">Trusted medicine. Human attention.</h2>
+          <p>Modern facilities, boarded specialists, and a culture built around listening first.</p>
+        </div>
+        <div class="trust">
+          <article class="trust-item reveal">
+            <h3>24/7</h3>
+            <p>Emergency department open every hour of the year.</p>
+          </article>
+          <article class="trust-item reveal">
+            <h3>40+</h3>
+            <p>Specialist physicians across major clinical departments.</p>
+          </article>
+          <article class="trust-item reveal">
+            <h3>A-grade</h3>
+            <p>Patient-safety focused protocols and infection control.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORIES -->
+    <section class="section bg-soft" id="stories" aria-labelledby="stories-heading">
+      <div class="container">
+        <div class="section-head center">
+          <p class="eyebrow">Patient stories</p>
+          <h2 id="stories-heading">Words from our community</h2>
+          <p>Real experiences from patients and families who trusted Meridian with their care.</p>
+        </div>
+        <div class="quotes">
+          <article class="quote reveal">
+            <blockquote>“The ER team moved fast, explained every step, and called my daughter so she wouldn’t worry alone.”</blockquote>
+            <cite>— James R., Emergency Care</cite>
+          </article>
+          <article class="quote reveal">
+            <blockquote>“Maternity felt calm and personal. Nurses treated us like family from admission to discharge.”</blockquote>
+            <cite>— Aisha &amp; Daniel K., Maternity</cite>
+          </article>
+          <article class="quote reveal">
+            <blockquote>“Cardiology follow-up was clear and thorough. I finally understand my treatment plan.”</blockquote>
+            <cite>— Helen M., Cardiology</cite>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPOINTMENTS -->
+    <section class="cta-band" id="appointments" aria-labelledby="appt-heading">
+      <div class="container cta-layout">
+        <div class="cta-copy">
+          <p class="eyebrow" style="color:#FBBF24">Appointments</p>
+          <h2 id="appt-heading">Ready when you are</h2>
+          <p>Request a clinic visit and our scheduling team will confirm by phone within one business day. For life-threatening emergencies, call 911 or go to the ER.</p>
+          <div class="cta-meta">
+            <div><strong>Phone:</strong> <a href="tel:+15550142200">(555) 014-2200</a></div>
+            <div><strong>Address:</strong> 1200 Harbor Way, Lakeside, CA 92040</div>
+            <div><strong>Emergency:</strong> Open 24/7</div>
+            <div><strong>Clinics:</strong> Mon–Fri 8am–6pm · Sat 9am–1pm</div>
+          </div>
+        </div>
+
+        <form class="appt-form" id="apptForm" novalidate>
+          <h3>Request an appointment</h3>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" type="text" autocomplete="name" required placeholder="Jordan Lee">
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="(555) 000-0000">
+            </div>
+          </div>
+          <div class="form-grid" style="margin-top:0.85rem">
+            <div class="field">
+              <label for="department">Department</label>
+              <select id="department" name="department" required>
+                <option value="">Select a department</option>
+                <option>Primary Care</option>
+                <option>Cardiology</option>
+                <option>Maternity</option>
+                <option>Orthopedics</option>
+                <option>Pediatrics</option>
+                <option>Imaging</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Reason for visit (optional)</label>
+              <textarea id="message" name="message" placeholder="Briefly describe symptoms or preferred times"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-accent" type="submit">Submit request</button>
+          <p class="form-note">This demo form does not send data to a server. Connect it to your hospital’s scheduling or form endpoint before go-live.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">Meridian General Hospital</div>
+        <p>1200 Harbor Way, Lakeside, CA 92040<br>Appointments: (555) 014-2200</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
         <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#">Security</a></li>
-          <li><a href="#">Enterprise</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#care-path">Your Visit</a></li>
+          <li><a href="#trust">Why Us</a></li>
+          <li><a href="#appointments">Appointments</a></li>
         </ul>
       </div>
-      <div class="footer-section">
-        <h4>Company</h4>
+      <div class="footer-col">
+        <h4>Patients</h4>
         <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#appointments">Book a visit</a></li>
+          <li><a href="#stories">Patient stories</a></li>
+          <li><a href="#care-path">What to expect</a></li>
+          <li><a href="tel:+15550142200">Call the hospital</a></li>
         </ul>
       </div>
-      <div class="footer-section">
+      <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Cookies</a></li>
-          <li><a href="#">Compliance</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Follow Us</h4>
-        <ul>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">Facebook</a></li>
+          <li><a href="#appointments">Privacy practices</a></li>
+          <li><a href="#appointments">Terms of use</a></li>
+          <li><a href="#appointments">Accessibility</a></li>
+          <li><a href="/sitemap.xml">Sitemap</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 TechFlow. All rights reserved.</p>
+    <div class="container footer-bottom">
+      <span>&copy; 2026 Meridian General Hospital. All rights reserved.</span>
+      <span>Indexable one-page landing · HTTPS recommended for go-live</span>
     </div>
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>
-    // ===== SMOOTH SCROLLING =====
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const target = document.querySelector(targetId);
-        if (target) {
+    (function () {
+      'use strict';
+
+      var NAV_OFFSET = 72;
+      var header = document.getElementById('siteHeader');
+      var hamburger = document.getElementById('hamburger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var backdrop = document.getElementById('navBackdrop');
+      var toastEl = document.getElementById('toast');
+      var menuOpen = false;
+      var toastTimer;
+
+      function scrollToHash(hash) {
+        var target = document.querySelector(hash);
+        if (!target) return;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var hash = link.getAttribute('href');
+          if (!hash || hash === '#') return;
+          if (!document.querySelector(hash)) return;
+          e.preventDefault();
           closeMenu();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    // ===== MOBILE MENU TOGGLE =====
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-
-    function closeMenu() {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('active');
-    }
-
-    // ===== SCROLL ANIMATIONS =====
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.feature-card, .step, .testimonial, .pricing-card').forEach(el => {
-      observer.observe(el);
-    });
-
-    // ===== ACTIVE NAV LINK ON SCROLL =====
-    window.addEventListener('scroll', () => {
-      let current = '';
-      const sections = document.querySelectorAll('section');
-      
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-          current = section.getAttribute('id');
-        }
+          scrollToHash(hash);
+        });
       });
 
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
+      function openMenu() {
+        menuOpen = true;
+        hamburger.classList.add('active');
+        mobileMenu.classList.add('active');
+        backdrop.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Close menu');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menuOpen = false;
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        backdrop.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', function () {
+        menuOpen ? closeMenu() : openMenu();
       });
-    });
+      backdrop.addEventListener('click', closeMenu);
+      mobileMenu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menuOpen) closeMenu();
+      });
 
-    // ===== CTA HANDLERS =====
-    function handleCTA() {
-      alert('🎉 Sign up flow would start here!\n\nReplace this with your signup form or redirect.');
-    }
+      function onScroll() {
+        header.classList.toggle('scrolled', window.pageYOffset > 8);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
-    function handleDemo() {
-      alert('▶️ Demo video would play here!\n\nReplace this with your demo video.');
-    }
+      var revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var revObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { revObs.observe(el); });
+      } else {
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+      }
 
-    document.getElementById('ctaNav').addEventListener('click', handleCTA);
+      var sectionIds = ['services', 'care-path', 'trust', 'stories', 'appointments'];
+      var navLinks = document.querySelectorAll('[data-nav]');
+      if ('IntersectionObserver' in window) {
+        var navObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(function (link) {
+              link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+            });
+          });
+        }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+        sectionIds.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) navObs.observe(el);
+        });
+      }
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toastEl.classList.remove('show');
+        }, 3200);
+      }
+
+      document.getElementById('apptForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('fullName').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var dept = document.getElementById('department').value;
+        if (!name || !phone || !dept) {
+          showToast('Please complete name, phone, and department.');
+          return;
+        }
+        showToast('Request received — scheduling would confirm this on a live hospital system.');
+        e.target.reset();
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 900 && menuOpen) closeMenu();
+      });
+    })();
   </script>
 </body>
 </html>
